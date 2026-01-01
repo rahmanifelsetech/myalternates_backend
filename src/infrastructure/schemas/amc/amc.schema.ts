@@ -1,0 +1,36 @@
+import { pgTable, uuid, varchar, text, date, integer, boolean, timestamp } from 'drizzle-orm/pg-core';
+import { products } from '../master/products.schema';
+
+export const amcs = pgTable('amcs', {
+    id: uuid('id').defaultRandom().primaryKey(),
+    amcCode: varchar('amc_code', { length: 50 }).unique(),
+    name: varchar('name', { length: 255 }),
+    shortName: varchar('short_name', { length: 100 }),
+    logoUrl: text('logo_url'),
+    about: text('about'),
+    color: varchar('color', { length: 7 }), // Hex color code
+    inceptionDate: date('inception_date'),
+    sebiRegistrationNo: varchar('sebi_registration_no', { length: 100 }),
+    commonInvestmentPhilosophy: text('common_investment_philosophy'),
+    noOfStrategies: integer('no_of_strategies'),
+    investmentTeam: text('investment_team'),
+    investorLoginUrl: text('investor_login_url'),
+    address: text('address'),
+    websiteUrl: text('website_url'),
+    twitterUrl: text('twitter_url'),
+    facebookUrl: text('facebook_url'),
+    linkedinUrl: text('linkedin_url'),
+    youtubeUrl: text('youtube_url'),
+    creativeUrl: text('creative_url'),
+    googleMapLink: text('google_map_link'),
+    restrictDisplay: boolean('restrict_display').default(false).notNull(),
+    isFeatured: boolean('is_featured').default(false).notNull(),
+    priorityOrder: integer('priority_order').default(0).notNull(),
+    aum: integer('aum'),
+    riskCategory: varchar('risk_category', { length: 100 }),
+    productId: uuid('product_id').references(() => products.id),
+    isActive: boolean('is_active').default(true).notNull(),
+    isDeleted: boolean('is_deleted').default(false).notNull(),
+    createdAt: timestamp('created_at', { mode: 'string' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'string' }).defaultNow().notNull(),
+});
