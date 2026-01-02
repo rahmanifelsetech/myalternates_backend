@@ -34,13 +34,14 @@ export class AmcController {
   @UseInterceptors(FileInterceptor('logo'))
   @ApiOperation({ summary: 'Create a new AMC' })
   async create(
+    @ActiveUser() user: UserWithRelations,
     @Body() createAmcDto: CreateAmcDto,
     @UploadedFile() logo: Express.Multer.File,
   ) {
     console.log('CreateAmcDto:', createAmcDto);
     console.log('logo:', logo);
-    // const amc = await this.amcService.create(createAmcDto, logo);
-    // return createSingleResponse(amc, 'AMC created successfully');
+    const amc = await this.amcService.create(createAmcDto, logo, user);
+    return createSingleResponse(amc, 'AMC created successfully');
   }
 
   @Get()
