@@ -13,7 +13,7 @@ export const DrizzleProvider: FactoryProvider = {
     const connectionString = configService.get<string>('database.url');
     const pool = new Pool({
       connectionString,
-      ssl: process.env.NODE_ENV === 'production',
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
     });
     return drizzle(pool, { schema });
   },
