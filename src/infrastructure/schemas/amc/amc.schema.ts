@@ -9,7 +9,7 @@ export const amcs = pgTable('amcs', {
     logoUrl: text('logo_url'),
     about: text('about'),
     color: varchar('color', { length: 7 }), // Hex color code
-    inceptionDate: date('inception_date'),
+    inceptionDate: date('inception_date', { mode: 'date' }),
     sebiRegistrationNo: varchar('sebi_registration_no', { length: 100 }),
     commonInvestmentPhilosophy: text('common_investment_philosophy'),
     noOfStrategies: integer('no_of_strategies'),
@@ -31,6 +31,6 @@ export const amcs = pgTable('amcs', {
     productId: uuid('product_id').references(() => products.id),
     isActive: boolean('is_active').default(true).notNull(),
     isDeleted: boolean('is_deleted').default(false).notNull(),
-    createdAt: timestamp('created_at', { mode: 'string' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'string' }).defaultNow().notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });

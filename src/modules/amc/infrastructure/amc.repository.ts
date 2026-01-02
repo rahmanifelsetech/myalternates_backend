@@ -65,7 +65,7 @@ export class AmcRepository extends BaseRepository implements AmcRepositoryInterf
   async update(id: string, data: UpdateAmc): Promise<Amc | undefined> {
     const [result] = await this.db
       .update(schema.amcs)
-      .set({ ...data, updatedAt: new Date().toISOString() })
+      .set({ ...data, updatedAt: new Date() })
       .where(eq(schema.amcs.id, id))
       .returning();
     return result;
@@ -74,7 +74,7 @@ export class AmcRepository extends BaseRepository implements AmcRepositoryInterf
   async delete(id: string): Promise<boolean> {
     const [result] = await this.db
       .update(schema.amcs)
-      .set({ isDeleted: true, updatedAt: new Date().toISOString() })
+      .set({ isDeleted: true, updatedAt: new Date() })
       .where(eq(schema.amcs.id, id))
       .returning();
     return !!result;

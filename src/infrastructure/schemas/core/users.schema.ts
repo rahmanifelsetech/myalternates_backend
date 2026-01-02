@@ -18,11 +18,11 @@ export const users = pgTable('users', {
   terms: boolean('terms').default(true).notNull(),
   roleId: uuid('role_id').references(() => roles.id),
   appType: userAppTypeEnum('app_type'),
-  lastLoginAt: timestamp('last_login_at', { mode: 'string' }),
-  lastActivityAt: timestamp('last_activity_at', { mode: 'string' }),
+  lastLoginAt: timestamp('last_login_at'),
+  lastActivityAt: timestamp('last_activity_at'),
   isDeleted: boolean('is_deleted').default(false).notNull(),
-  createdAt: timestamp('created_at', { mode: 'string' }).defaultNow().notNull(),
-  updatedAt: timestamp('updated_at', { mode: 'string' }).defaultNow().notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
   createdById: uuid('created_by_id').references(() => users.id),
   updatedById: uuid('updated_by_id').references(() => users.id),
   requiresPasswordChange: boolean('requires_password_change').default(false).notNull(),
@@ -32,5 +32,13 @@ export const usersRelations = relations(users, ({ one }) => ({
   role: one(roles, {
     fields: [users.roleId],
     references: [roles.id],
+  }),
+  createdBy: one(users, {
+    fields: [users.createdById],
+    references: [users.id],
+  }),
+  updatedBy: one(users, {
+    fields: [users.updatedById],
+    references: [users.id],
   }),
 }));

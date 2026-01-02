@@ -135,6 +135,6 @@ export const schemes = pgTable('schemes', {
     riskLevel: varchar("risk_level", { length: 50 }),
     isActive: boolean('is_active').default(true).notNull(),
     isDeleted: boolean('is_deleted').default(false).notNull(),
-    createdAt: timestamp('created_at', { mode: 'string' }).defaultNow().notNull(),
-    updatedAt: timestamp('updated_at', { mode: 'string' }).defaultNow().notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });

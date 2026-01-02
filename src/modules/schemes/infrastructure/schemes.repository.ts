@@ -20,7 +20,7 @@ export class SchemesRepository extends BaseRepository implements SchemesReposito
   async update(id: string, data: Partial<NewScheme>): Promise<Scheme | undefined> {
     const [result] = await this.db
       .update(schema.schemes)
-      .set({ ...data, updatedAt: new Date().toISOString() })
+      .set({ ...data, updatedAt: new Date() })
       .where(eq(schema.schemes.id, id))
       .returning();
     return result;

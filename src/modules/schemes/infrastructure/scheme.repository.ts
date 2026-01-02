@@ -68,7 +68,7 @@ export class SchemeRepository extends BaseRepository implements SchemeRepository
   async update(id: string, data: UpdateScheme): Promise<Scheme | undefined> {
     const [result] = await this.db
       .update(schema.schemes)
-      .set({ ...data, updatedAt: new Date().toISOString() })
+      .set({ ...data, updatedAt: new Date() })
       .where(eq(schema.schemes.id, id))
       .returning();
     return result;
@@ -77,7 +77,7 @@ export class SchemeRepository extends BaseRepository implements SchemeRepository
   async delete(id: string): Promise<boolean> {
     const [result] = await this.db
       .update(schema.schemes)
-      .set({ isDeleted: true, updatedAt: new Date().toISOString() })
+      .set({ isDeleted: true, updatedAt: new Date() })
       .where(eq(schema.schemes.id, id))
       .returning();
     return !!result;

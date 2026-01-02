@@ -2,6 +2,7 @@ import { createZodDto } from 'nestjs-zod';
 import { createInsertSchema } from 'drizzle-zod';
 import { users, userAppTypeEnum } from '@app/infrastructure/schemas';
 import { z } from 'zod';
+import { datePreprocess } from '@app/shared/utils/zod.utils';
 
 export const createUserSchema = createInsertSchema(users, {
   email: z.email(),
@@ -10,6 +11,12 @@ export const createUserSchema = createInsertSchema(users, {
   firstName: z.string().min(1).optional(),
   lastName: z.string().min(1).optional(),
   appType: z.enum(userAppTypeEnum.enumValues).optional(),
+  lastLoginAt: datePreprocess,
+  lastActivityAt: datePreprocess,
+}).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
 });
 
 export class CreateUserDto extends createZodDto(createUserSchema) {}
@@ -25,6 +32,12 @@ const createInternalUserSchema = createInsertSchema(users, {
   firstName: z.string().min(1),
   lastName: z.string().min(1).optional(),
   appType: z.enum(userAppTypeEnum.enumValues).optional(),
+  lastLoginAt: datePreprocess,
+  lastActivityAt: datePreprocess,
+}).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
 });
 
 export class CreateInternalUserDto extends createZodDto(createInternalUserSchema) {}

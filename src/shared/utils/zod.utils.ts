@@ -30,9 +30,9 @@ export const datePreprocess = z.preprocess((val) => {
   if (val === '' || val === undefined || val === null) {
     return undefined;
   }
-  const date = new Date(val as string | number);
-  if (isNaN(date.getTime())) {
-    return val;
-  }
-  return date.toISOString().split('T')[0];
-}, z.string().optional());
+  return val;
+}, z.any().transform(val => {
+  if (val instanceof Date) return val;
+  const date = new Date(val);
+  return isNaN(date.getTime()) ? val : date;
+}).describe('ISO 8601 date string').optional());
