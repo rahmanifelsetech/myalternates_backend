@@ -17,10 +17,7 @@ export const getInternalWelcomeEmailTemplate = (params: InternalWelcomeEmailPara
     </div>
     <p>Please log in and change your password immediately.</p>
   `;
-  return getBaseEmailTemplate({ content, header: `
-    <div style="background-color: #f4f4f4; padding: 20px; text-align: center;">
-      <img src="https://via.placeholder.com/150x50?text=MyAlternates+Logo" alt="MyAlternates Logo" style="max-width: 150px; height: auto;">
-      <h1 style="color: #333;">Welcome to MyAlternates!</h1>
-    </div>
+  return getBaseEmailTemplate({ content, headerText: `
+    <h1 style="color: #333;">Welcome to MyAlternates!</h1>
   `});
 };

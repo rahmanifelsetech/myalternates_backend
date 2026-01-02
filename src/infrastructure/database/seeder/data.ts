@@ -7,10 +7,12 @@ export const ROLES = [
 export const ADMIN_USER = {
   firstName: 'Admin',
   lastName: 'User',
-  email: 'admin@example.com',
+  email: 'admin@ifelsetech.com',
   phone: '1234567890',
   username: 'admin',
   password: 'password', // Note: This should be changed in a real application
+  appType: 'ADMIN',
+  
 };
 
 export const PRODUCTS = [

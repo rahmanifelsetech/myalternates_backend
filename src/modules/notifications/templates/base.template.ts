@@ -2,16 +2,16 @@ export interface BaseEmailTemplateParams {
   content: string;
   header?: string;
   footer?: string;
+  headerText?: string;
 }
 
 export const getBaseEmailTemplate = (params: BaseEmailTemplateParams) => {
-  const { content, header, footer } = params;
+  const { content, header, footer, headerText } = params;
   const defaultHeader = `
     <div style="background-color: #000000ff; padding: 10px; text-align: center;">
       <img src="https://myalternates.com/Content/images/200x500.jpg" alt="MyAlternates Logo" style="max-width: 250px; height: auto;">
     </div>
     `;
-  // <h1 style="color: #333;">MyAlternates</h1>
   const defaultFooter = `
     <div style="padding: 10px; margin: 10px auto; text-align: center; font-size: 12px; color: #020202ff;">
       <p>&copy; ${new Date().getFullYear()} MyAlternates. All rights reserved.</p>
@@ -42,6 +42,7 @@ export const getBaseEmailTemplate = (params: BaseEmailTemplateParams) => {
         <div class="email-container">
           ${header || defaultHeader}
           <div class="content">
+              ${headerText ? headerText : ""}
               ${content}
           </div>
         </div>
